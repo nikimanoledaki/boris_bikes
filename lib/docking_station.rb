@@ -16,7 +16,7 @@ class DockingStation
   end
 
   def dock(bike)
-    fail "Dock is full" if full?
+    fail "No space available" if full?
       bikes << bike
   end
   
