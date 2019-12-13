@@ -1,48 +1,34 @@
-require 'docking_station'
+require_relative 'bike'
 
-describe DockingStation do
+class DockingStation
+  DEFAULT_CAPACITY = 20
+  attr_reader :capacity, :bikes
 
-  subject { DockingStation.new }
-  let(:bike) { Bike.new }
 
-  describe 'initialization' do
-    it 'starts with 20 bikes in docking station' do
-      subject.capacity.times { subject.dock(bike) }
-      expect{subject.dock(bike)}.to raise_error("Dock is full")
-    end
-
-    it 'initializes with a default capacity' do
-      expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
-    end
-  
-    it 'has a variable capacity that raises an error when dock is full' do
-      bike = Bike.new
-      docking_station = DockingStation.new(50)
-      50.times { docking_station.dock(bike)}
-      expect { docking_station.dock(bike)}.to raise_error("Dock is full")
-    end
+  def initialize(capacity=DEFAULT_CAPACITY)
+    @bikes = []
+    @capacity = capacity
+    @capacity = DEFAULT_CAPACITY
   end
 
-  describe 'release bike' do
-    it { is_expected.to respond_to :release_bike }
-
-    it 'raises error on .release_bike when docking station is empty' do
-      expect { subject.release_bike } .to raise_error("No bikes available")
-    end
-
-    it 'releases working bikes if there are docked bikes' do
-      bike = Bike.new
-      subject.dock(bike)
-      expect(subject.release_bike).to eq bike
-    end
+  def release_bike
+    fail "No bikes available" if empty?
+      bikes.pop
   end
 
-  describe 'dock bike' do
-    it 'docks second bike' do
-      bike = Bike.new
-      subject.dock(bike)
-      expect(subject.dock(bike)).to eq [bike, bike]
-    end 
+  def dock(bike)
+    fail "Dock is full" if full?
+      bikes << bike
+  end
+
+  private
+
+  def full?
+    bikes.count >= capacity
+  end
+
+  def empty?
+    bikes.empty?
   end
 
 end
