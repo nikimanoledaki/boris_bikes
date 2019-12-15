@@ -5,7 +5,7 @@ describe DockingStation do
   subject {DockingStation.new}
   let(:bike) {Bike.new}
 
-  describe "Initializtion" do    
+  describe "initializtion" do    
     it 'default capacity' do
       DockingStation::DEFAULT_CAPACITY.times {subject.dock(bike)}
       expect{subject.dock(bike)}.to raise_error "No space available"
@@ -28,7 +28,7 @@ describe DockingStation do
     end
 
     it 'raised an error when there are no bikes available' do
-      expect{ subject.release_bike }.to raise_error "No bikes available"
+      expect{ subject.release_bike }.to raise_error "No working bikes available"
     end
   end
 
@@ -45,7 +45,7 @@ describe DockingStation do
       expect(subject.dock(@bikes)).not_to be_empty
     end 
 
-    it "raised an error when full" do
+    it 'raises an error when full' do
       subject.capacity.times { subject.dock(bike) }
       expect { subject.dock(bike) }.to raise_error "No space available"
     end

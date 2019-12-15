@@ -11,7 +11,7 @@ class DockingStation
   end
 
   def release_bike
-    fail "No bikes available" if empty?
+    fail "No working bikes available" if empty?
       bikes.pop
   end
 
