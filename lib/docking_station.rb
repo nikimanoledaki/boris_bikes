@@ -22,11 +22,13 @@ class DockingStation
 
   def dock(bike)
     fail "No space available" if full?
-      bikes << bike
+    bikes << bike
   end
 
   def broken?
-    bikes[0].broken?
+    bikes.each do |bike|
+      bike.broken?
+    end
   end
   
   private

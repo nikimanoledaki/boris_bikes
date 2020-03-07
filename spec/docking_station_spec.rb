@@ -13,11 +13,10 @@ describe DockingStation do
   end 
 
   describe 'release_bike' do
-
     it 'releases working bikes' do
       subject.dock(bike)
       bike = subject.release_bike
-      expect(bike).to be_working
+      expect(bike.working).to be true
     end 
 
     it { is_expected.to respond_to :release_bike }
