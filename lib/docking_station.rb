@@ -26,9 +26,7 @@ class DockingStation
   end
 
   def broken?
-    bikes.each do |bike|
-      bike.broken?
-    end
+    bikes[0].broken?
   end
   
   private
